@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>sample</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script type="text/javascript">
+jQuery(function($) {
+    $("form").submit(function(event){
+        event.preventDefault();
+                var $form = $(this);
+        var $url = $form.attr('action');
+        $($form.serializeArray()).each(function(){
+            if(this.value){
+                $url += '/' + this.value;
+            }
+        });
+        $.ajax({
+            url: $url,
+            type: $form.attr('method'),
+        }).done(function(data) {
+            alert($.parseJSON(data).message);
+        }).fail(function(data) {
+            alert($.parseJSON(data.responseText).error.message);
+        });
+    });
+});
+</script>
+</head>
+<body>
+<section>
+<h2>GET</h2>
+<form action="/api/expense" method="get">
+<label>項目名 : <input type="text" value="" name="key"></label>
+<input type="submit" value="金額を取得">
+</form>
+</section>
+<section>
+<h2>PUT</h2>
+<form id="put-expense" action="/api/expense" method="put">
+<label>項目名 : <input type="text" value="" name="key"></label>
+<label>金額 : <input type="text" value="" name="value">円</label>
+<input type="submit" value="項目を登録・更新">
+</form>
+</section>
+<section>
+<h2>DELETE</h2>
+<form action="/api/expense" method="delete">
+<label>項目名 : <input type="text" value="" name="key"></label>
+<input type="submit" value="項目を削除">
+</form>
+</section>
+</body>
+</html>
