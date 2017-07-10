@@ -26,7 +26,7 @@ func NewParam(url *url.URL) *Param {
 		param.Kind = s[1]
 	}
 	if len(s) >= 3 {
-		param.Value = s[2]
+		param.Key = s[2]
 	}
 	if len(s) >= 4 {
 		param.Value = s[3]

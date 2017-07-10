@@ -16,8 +16,8 @@ type templateHandler struct {
 
 func (t *templateHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	//templateをコンパイルするのは1回だけで良いのでonceを利用。
-	t.once.Do(func() {
-		t.tpl = template.Must(template.ParseFiles(filepath.Join("templates", t.filename)))
-	})
+	//t.once.Do(func() {
+	t.tpl = template.Must(template.ParseFiles(filepath.Join(".", t.filename)))
+	//})
 	t.tpl.Execute(w, nil)
 }
